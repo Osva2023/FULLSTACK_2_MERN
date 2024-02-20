@@ -1,6 +1,8 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 
-const URI = process.env.ATLAS_URI || "";
+const URI = 'mongodb+srv://elosvadel84:Rocket_Mern@cluster0.swdaoaq.mongodb.net/Rocket_Mern?retryWrites=true&w=majority'; //FIX THESE LATER
+
+//const URI = process.env.ATLAS_URI || "";
 const client = new MongoClient(URI, {
   serverApi: {
     version: ServerApiVersion.v1,
