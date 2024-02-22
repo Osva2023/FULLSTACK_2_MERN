@@ -1,21 +1,25 @@
-import express from "express";
-import cors from "cors";
-import records from "./routes/record.js";
-import dotenv from "dotenv";
-// const express = require("express");
-// const cors = require("cors");
-// const records = require( "./routes/record.js");
-// const dotenv = require("dotenv");
-dotenv.config();
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
 
-const PORT = process.env.PORT || 5050;
+dotenv.config({ path: './config.env' });
+import {connectToServer} from './db/conn.js';
+import recordRoutes from './routes/record.js';
+
+const port = process.env.PORT || 3001;
 const app = express();
-
-app.use(cors());
 app.use(express.json());
-app.use("/record", records);
+app.use(cors());
+app.use(recordRoutes);
 
-// start the Express server
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+// get driver connection
+
+
+app.listen(port, () => {
+  connectToServer(function (err) {
+    if (err) console.error(err);
+  });
+  console.log(`Server is running on port: ${port}`);
+
+  
+})
