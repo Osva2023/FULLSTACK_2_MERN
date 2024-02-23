@@ -80,14 +80,18 @@ export async function updateAgentbyId (req, res) {
     
 
 // This section will help you delete an agent
-export function deleteAgentById (req, res) {
+export function deleteAgentById(req, res) {
     let db_connect = getDb("employees");
-    let myquery = { _id: ObjectId(req.params.id) };
+    let myquery = { _id: new ObjectId(req.params.id) };
     db_connect
-        .collection("agents")
-        .deleteOne(myquery, function (err, obj) {
-            if (err) throw err;
-            console.log("1 document deleted");
-            res.json(obj);
-        });
-};
+      .collection("agents")
+      .deleteOne(myquery)
+      .then(obj => {
+        console.log("1 document deleted");
+        res.json(obj);
+      })
+      .catch(err => {
+        console.error(`Failed to delete agent: ${err}`);
+        res.status(500).json({ error: 'Failed to delete agent' });
+      });
+  };
