@@ -8,10 +8,10 @@ import { NavLink } from "react-router-dom";
  // Here, we display our Navbar
 export default function Navbar() {
  return (
-   <div>
+   <div className="navbar-custom"> 
      <nav className="navbar navbar-expand-lg navbar-light bg-light">
        <NavLink className="navbar-brand" to="/">
-       <img style={{"width" : 15 + '%'}} src="/rocketLogo.png" alt="Rocket logo"></img>
+       <img style={{width : "200px", marginRight: "500px"}} src="/rocketLogo.png" alt="Rocket logo"></img>
        </NavLink>
        <button
          className="navbar-toggler"
@@ -27,7 +27,7 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
          <ul className="navbar-nav">
            <li className="nav-item">
-             <NavLink className="nav-link" to="/create">
+             <NavLink className="nav-link btn-outline-primary" to="/create">
                Create Agent
              </NavLink>
            </li>
