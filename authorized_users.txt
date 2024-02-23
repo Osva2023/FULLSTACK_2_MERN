@@ -1,0 +1,25 @@
+{
+    "first_name": "Reinier",
+    "last_name": "Aldana",
+    "email": "aldana@rocket.elv",
+    "pasword": "123456"
+}
+
+{
+    "first_name": "Raul",
+    "last_name": "Gomez",
+    "email": "rgomez@rocket.elv",
+    "password": "123456"
+}
+{
+    "first_name": "Barbara",
+    "last_name": "Olivera",
+    "email": "bolivera@rocket.elv",
+    "password": "123456"
+}
+{
+    "first_name": "Leonardo",
+    "last_name": "Gomez",
+    "email": "lgomez@rocket.elv",
+    "password": "123456"
+}
