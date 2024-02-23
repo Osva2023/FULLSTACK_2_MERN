@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../Auth';
+import { useAuth } from '../auth/AuthContext';
 
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginFailed, setLoginFailed] = useState(false);
   const { loggedIn, login } = useAuth();
 
   const handleSubmit = (e) => {
@@ -15,12 +16,16 @@ export function Login() {
         console.log('logged in');
       })
       .catch((err) => console.log(err));
+      setLoginFailed(true);
   };
 
   if (loggedIn) {
     return <Navigate to="/" />;
   }
 
+  if (loginFailed) {
+    return <Navigate to="/unauthorized" />;
+  }
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>

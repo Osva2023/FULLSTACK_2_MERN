@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectToServer } from './db/conn.js';
 import agentRoutes from './routes/agent.route.js';
-//import userRoutes from './routes/user.route.js';
+import loginRoute from './routes/login.route.js';
 
 dotenv.config({ path: './config.env' });
 
@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(agentRoutes);
-//app.use(userRoutes);
+app.use('/', loginRoute);
 
 // Connect to MongoDB before starting the server
 connectToServer().then(async () => {

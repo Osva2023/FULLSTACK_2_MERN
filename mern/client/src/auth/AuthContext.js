@@ -5,18 +5,28 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loginStatus, setLoginStatus] = useState(false);
 
   const login = (email, password) => {
-    // Implementa la lógica de autenticación aquí
-    // Si las credenciales son válidas, establece loggedIn en true
     return new Promise((resolve, reject) => {
-      // Lógica de autenticación (puede ser una llamada a una API, etc.)
-      // Si las credenciales son válidas, establece loggedIn en true
-      // Si hay un error, llama a reject con el mensaje de error
-      // Si todo está bien, llama a resolve
+      // Replace this with your actual API call
+      fetch('http://localhost:3001/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            setLoggedIn(true);
+            setLoginStatus(!loginStatus); // Actualiza el estado de login
+            resolve();
+          } else {
+            response.json().then((data) => reject(data.error));
+          }
+        })
+        .catch((err) => reject(err.message));
     });
   };
-
   const logout = () => {
     // Implementa la lógica de cierre de sesión aquí
     // Por ejemplo, simplemente establece loggedIn en false
@@ -24,7 +34,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ loggedIn, login, logout }}>
+    <AuthContext.Provider value={{ loggedIn, login, loginStatus }}>
       {children}
     </AuthContext.Provider>
   );

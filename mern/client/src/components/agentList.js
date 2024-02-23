@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Navbar from "../components/navbar";
 const Agent = (props) => (
  <tr>
    <td>{props.agent.last_name}, {props.agent.first_name}</td>
@@ -64,6 +65,7 @@ export default function AgentList() {
   // This following section will display the table with the agents of individuals.
  return (
    <div>
+     <navbar /> {Navbar }
      <h3>Agent List</h3>
      <table className="table table-striped" style={{ marginTop: 20 }}>
        <thead>
