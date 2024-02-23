@@ -69,7 +69,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
     });
 });
 
-// This section will help you delete a record
+// This section will help you delete a record 
 recordRoutes.route("/:id").delete((req, response) => {
   let db_connect = getDb();
   let myquery = { _id:  ObjectId(req.params.id) };

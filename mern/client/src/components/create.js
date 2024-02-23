@@ -3,9 +3,13 @@ import { useNavigate } from 'react-router';
 
 export default function Create() {
     const [form, setForm] = useState({
-        name: '',
-        position: '',
-        level: ''
+        first_name: '',
+        last_name: '',
+        email: '',
+        region: '',
+        rating: '',
+        fee: '',
+        sales: '',
     });
     const navigate = useNavigate();
     // These methods will update the state properties
@@ -19,7 +23,7 @@ export default function Create() {
         e.preventDefault();
         // When a post request is sent to the create url, we'll add a new record to the database
         const newPerson = { ...form };
-        await fetch(`http://localhost:3001/record/add`, {
+        await fetch(`http://localhost:3001/agent/create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,76 +34,90 @@ export default function Create() {
             window.alert(error);
             return;
         });
-        setForm({ name: '', position: '', level: '' });
+        setForm({ first_name: '', last_name: '', email: '', region: '', rating: '', fee: '', sales: ''});
         navigate('/');
     }
     // This following section will display the form that takes the input from the user.
     return (
             <div>
-                <h3>Create New Record</h3>
+                <h3>Create New Agent</h3>
                 <form onSubmit={onSubmit}>
                     <div className="form-group">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="first_name">First_Name</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="name"
-                            value={form.name}
-                            onChange={(e) => updateForm({ name: e.target.value })}
+                            id="first_name"
+                            value={form.first_name}
+                            onChange={(e) => updateForm({ first_name: e.target.value })}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="position">Position</label>
+                        <label htmlFor="last_name">Last_Name</label>
                         <input
                             type="text"
                             className="form-control"
-                            id="position"
-                            value={form.position}
-                            onChange={(e) => updateForm({ position: e.target.value })}
+                            id="last_name"
+                            value={form.last_name}
+                            onChange={(e) => updateForm({ last_name: e.target.value })}
                         />
                     </div>
                     <div className="form-group">
-                        <div className="form-check form-check-inline">
-                            <input
-                                className="form-check-input"
-                                type="radio"
-                                name="positionOptions"
-                                id="positionIntern"
-                                value="Intern"
-                                checked={form.level === 'Intern'}
-                                onChange={(e) => updateForm({ level: e.target.value })}
-                            />
-                            <label htmlFor="positionIntern" className="form-check-label">Intern</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input
-                                className="form-check-input"
-                                type="radio"
-                                name="positionOptions"
-                                id="positionJunior"
-                                value="Junior"
-                                checked={form.level === 'Junior'}
-                                onChange={(e) => updateForm({ level: e.target.value })}
-                            />
-                            <label htmlFor="positionJunior" className="form-check-label">Junior</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input
-                                className="form-check-input"
-                                type="radio"
-                                name="positionOptions"
-                                id="positionSenior"
-                                value="Senior"
-                                checked={form.level === 'Senior'}
-                                onChange={(e) => updateForm({ level: e.target.value })}
-                                />
-                            <label htmlFor="positionSenior" className="form-check-label">Senior</label>
-                        </div>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="email"
+                            value={form.email}
+                            onChange={(e) => updateForm({ email: e.target.value })}
+                        />
                     </div>
+                    <div className="form-group">
+                        <label htmlFor="region">Region</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="region"
+                            value={form.region}
+                            onChange={(e) => updateForm({ region: e.target.value })}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="rating">Rating</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            id="rating"
+                            value={form.rating}
+                            onChange={(e) => updateForm({ rating: e.target.value })}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="fee">Fee</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            id="fee"
+                            value={form.fee}
+                            onChange={(e) => updateForm({ fee: e.target.value })}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="sales">Sales</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            id="sales"
+                            value={form.sales}
+                            onChange={(e) => updateForm({ sales: e.target.value })}
+                        />
+                    </div>
+
+                    
                     <div className="form-group">
                         <input
                             type="submit"
-                            value="Create person"
+                            value="Create Agent"
                             className="btn btn-primary"
                         />
                     </div>

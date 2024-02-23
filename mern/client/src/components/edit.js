@@ -12,7 +12,7 @@ import { useParams, useNavigate } from "react-router";
   useEffect(() => {
    async function fetchData() {
      const id = params.id.toString();
-     const response = await fetch(`http://localhost:3001/record/${params.id.toString()}`);
+     const response = await fetch(`http://localhost:3001/edit/${params.id.toString()}`);
       if (!response.ok) {
        const message = `An error has occurred: ${response.statusText}`;
        window.alert(message);
