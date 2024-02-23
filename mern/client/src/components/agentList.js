@@ -65,7 +65,7 @@ export default function AgentList() {
   // This following section will display the table with the agents of individuals.
  return (
    <div>
-     <navbar /> {Navbar }
+     <Navbar /> 
      <h3>Agent List</h3>
      <table className="table table-striped" style={{ marginTop: 20 }}>
        <thead>
