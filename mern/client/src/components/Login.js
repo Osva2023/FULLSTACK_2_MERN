@@ -15,8 +15,10 @@ export function Login() {
       .then(() => {
         console.log('logged in');
       })
-      .catch((err) => console.log(err));
-      setLoginFailed(true);
+      .catch((err) => {
+        console.log(err);
+        setLoginFailed(true); // Move this inside the .catch block
+      });
   };
 
   if (loggedIn) {
@@ -26,6 +28,7 @@ export function Login() {
   if (loginFailed) {
     return <Navigate to="/unauthorized" />;
   }
+
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
@@ -56,4 +59,3 @@ export function Login() {
     </div>
   );
 }
-
