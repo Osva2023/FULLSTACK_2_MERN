@@ -7,19 +7,22 @@ const client = new MongoClient(Db);
 let _db;
 
   
-  export async function connectToServer () {
+  export const  connectToServer = async() =>  {
+    console.log('Connecting to MongoDB...');
     try {
       await client.connect();
 
         _db = client.db("employees");
-        console.log("Successfully connected to MongoDB.");
+        //console.log("Successfully connected to MongoDB.");
    } catch (err) {
-     console.error(err);
+     console.error("There was an error connecting to MongoDB: ", err);
    }
   }
       
   
 
-  export function getDb() {
+  export const getDb = () =>{
+    if (!_db) throw new Error('Unable to stablish connection to database');
+    
     return _db;
   }

@@ -1,22 +1,18 @@
+
+
 import { getDb } from "../db/conn.js";
-import { ObjectId } from "mongodb";
+//import { ObjectId } from "mongodb";
 
 // This section will help you get a list of all the agents.
-export function getAllAgents(req, res) {
-    console.log('received request to /agent');      // debugging porpuses
+export const getAllAgents = async(req, res) =>{
+    
     let db_connect = getDb();
-    db_connect
-        .collection("agents")
-        .find({})
-        .toArray(function (err, result) {
-            if (err) throw err;
-            console.log('data sent to client:', result);      // debugging porpuses
-            res.json(result);
-        });
+    const result = await db_connect.collection("agents").find({}).toArray();
+        res.json(result);
 };
 
 // This section will help you get a single agent by id
-export function getAgentById(req, res) {
+export const getAgentById = async (req, res) => {
     let db_connect = getDb("employees");
     let myquery = { _id: ObjectId(req.params.id) };
     db_connect
