@@ -8,6 +8,7 @@ import UnauthorizedPage from '../src/components/unnauthorized.js';
 import {Login} from '../src/components/Login';
 import Edit from '../src/components/edit';
 import Create from '../src/components/create';
+import './components/style.css';
 
 function App() {
   return (

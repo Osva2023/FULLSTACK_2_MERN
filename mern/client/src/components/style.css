@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .content-box {
+    border: 1px solid #000; /* Add a border */
+    border-radius: 10px; /* Round the corners */
+    padding: 20px; /* Add some padding */
+    text-align: center; /* Center the text */
+  }
