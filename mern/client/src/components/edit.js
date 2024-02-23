@@ -2,33 +2,41 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
  export default function Edit() {
  const [form, setForm] = useState({
-   name: "",
-   position: "",
-   level: "",
-   records: [],
+   first_name: "",
+   last_name: "",
+   region: "",
+   rating: "",
+   sales: "",
+   fee: "",
  });
  const params = useParams();
  const navigate = useNavigate();
   useEffect(() => {
    async function fetchData() {
      const id = params.id.toString();
-     const response = await fetch(`http://localhost:3001/edit/${params.id.toString()}`);
+     const response = await fetch(`http://localhost:3001/agent/${id}`, {
+       method: "GET",
+     });
+     console.log(response);
       if (!response.ok) {
        const message = `An error has occurred: ${response.statusText}`;
        window.alert(message);
        return;
      }
-      const record = await response.json();
-     if (!record) {
-       window.alert(`Record with id ${id} not found`);
+      const agents = await response.json();
+     if (!agents) {
+       window.alert(`Agent with id ${id} not found`);
        navigate("/");
        return;
      }
-      setForm(record);
+      setForm(agents);
    }
+  
     fetchData();
     return;
- }, [params.id, navigate]);
+ }, [params.id, navigate])
+ 
+
   // These methods will update the state properties.
  function updateForm(value) {
    return setForm((prev) => {
@@ -38,12 +46,15 @@ import { useParams, useNavigate } from "react-router";
   async function onSubmit(e) {
    e.preventDefault();
    const editedPerson = {
-     name: form.name,
-     position: form.position,
-     level: form.level,
+     first_name: form.first_name,
+     last_name: form.last_name,
+     region: form.region,
+     rating: form.rating,
+     sales: form.sales,
+     fee: form.fee,
    };
     // This will send a post request to update the data in the database.
-   await fetch(`http://localhost:3001/update/${params.id}`, {
+   await fetch(`http://localhost:3001/agent/update/${params.id}`, {
      method: "POST",
      body: JSON.stringify(editedPerson),
      headers: {
@@ -55,72 +66,73 @@ import { useParams, useNavigate } from "react-router";
   // This following section will display the form that takes input from the user to update the data.
  return (
    <div>
-     <h3>Update Record</h3>
+     <h3>Update Agent</h3>
      <form onSubmit={onSubmit}>
        <div className="form-group">
-         <label htmlFor="name">Name: </label>
+         <label htmlFor="name">First_Name: </label>
          <input
            type="text"
            className="form-control"
-           id="name"
-           value={form.name}
-           onChange={(e) => updateForm({ name: e.target.value })}
+           id="first_name"
+           value={form.first_name}
+           onChange={(e) => updateForm({ first_name: e.target.value })}
          />
        </div>
        <div className="form-group">
-         <label htmlFor="position">Position: </label>
+         <label htmlFor="name">Last_Name: </label>
          <input
            type="text"
            className="form-control"
-           id="position"
-           value={form.position}
-           onChange={(e) => updateForm({ position: e.target.value })}
+           id="last_name"
+           value={form.last_name}
+           onChange={(e) => updateForm({ last_name: e.target.value })}
          />
        </div>
        <div className="form-group">
-         <div className="form-check form-check-inline">
-           <input
-             className="form-check-input"
-             type="radio"
-             name="positionOptions"
-             id="positionIntern"
-             value="Intern"
-             checked={form.level === "Intern"}
-             onChange={(e) => updateForm({ level: e.target.value })}
-           />
-           <label htmlFor="positionIntern" className="form-check-label">Intern</label>
-         </div>
-         <div className="form-check form-check-inline">
-           <input
-             className="form-check-input"
-             type="radio"
-             name="positionOptions"
-             id="positionJunior"
-             value="Junior"
-             checked={form.level === "Junior"}
-             onChange={(e) => updateForm({ level: e.target.value })}
-           />
-           <label htmlFor="positionJunior" className="form-check-label">Junior</label>
-         </div>
-         <div className="form-check form-check-inline">
-           <input
-             className="form-check-input"
-             type="radio"
-             name="positionOptions"
-             id="positionSenior"
-             value="Senior"
-             checked={form.level === "Senior"}
-             onChange={(e) => updateForm({ level: e.target.value })}
-           />
-           <label htmlFor="positionSenior" className="form-check-label">Senior</label>
+         <label htmlFor="name">Region: </label>
+         <input
+           type="text"
+           className="form-control"
+           id="region"
+           value={form.region}
+           onChange={(e) => updateForm({ region: e.target.value })}
+         />
        </div>
+       <div className="form-group">
+         <label htmlFor="name">Rating: </label>
+         <input
+           type="text"
+           className="form-control"
+           id="rating"
+           value={form.rating}
+           onChange={(e) => updateForm({ rating: e.target.value })}
+         />
        </div>
-       <br />
+       <div className="form-group">
+         <label htmlFor="name">Sales: </label>
+         <input
+           type="text"
+           className="form-control"
+           id="sales"
+           value={form.sales}
+           onChange={(e) => updateForm({ sales: e.target.value })}
+         />
+       </div>
+       <div className="form-group">
+         <label htmlFor="name">Fee: </label>
+         <input
+           type="text"
+           className="form-control"
+           id="fee"
+           value={form.fee}
+           onChange={(e) => updateForm({ fee: e.target.value })}
+         />
+       </div>
  
        <div className="form-group">
          <input
            type="submit"
-           value="Update Record"
+           value="Update Agent"
            className="btn btn-primary"
          />
        </div>

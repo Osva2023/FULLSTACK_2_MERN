@@ -1,7 +1,13 @@
 
 
 import { getDb } from "../db/conn.js";
-//import { ObjectId } from "mongodb";
+let ObjectId
+const initializeObjectId = async () => {
+ const  mongodb = await import("mongodb");
+ ObjectId = mongodb.ObjectId;
+};
+initializeObjectId();
+
 
 // This section will help you get a list of all the agents.
 export const getAllAgents = async(req, res) =>{
@@ -13,13 +19,19 @@ export const getAllAgents = async(req, res) =>{
 
 // This section will help you get a single agent by id
 export const getAgentById = async (req, res) => {
+    console.log(`Fetching agent with id ${req.params.id}`); // Debug line
     let db_connect = getDb("employees");
-    let myquery = { _id: ObjectId(req.params.id) };
+    let myquery = { _id: new ObjectId(req.params.id) };
     db_connect
         .collection("agents")
-        .findOne(myquery, function (err, result) {
-            if (err) throw err;
+        .findOne(myquery)
+        .then((result) => {
+            console.log(`Found agent: ${JSON.stringify(result)}`); // Debug line
             res.json(result);
+        })
+        .catch(err => {
+            console.error(`Error occurred: ${err}`); // Debug line
+            res.status(500).json({ error: "An error occurred while fetching the agent." });
         });
 };
 
@@ -42,9 +54,9 @@ export function createAgent(req, res) {
 };
 
 // This section will help you update an agent by id.
-export function updateAgentbyId (req, res) {
+export async function updateAgentbyId (req, res) {
     let db_connect = getDb("employees");
-    let myquery = { _id: ObjectId(req.params.id) };
+    let myquery = { _id: new ObjectId(req.params.id) };
     let newvalues = {
         $set: {
             first_name: req.body.first_name,
@@ -56,14 +68,16 @@ export function updateAgentbyId (req, res) {
             sales: req.body.sales
         },
     };
-    db_connect
-        .collection("agents")
-        .updateOne(myquery, newvalues, function (err, result) {
-            if (err) throw err;
-            console.log("1 document updated");
-            res.json(result);
-        });
+    try {
+        const result = await db_connect.collection("agents").updateOne(myquery, newvalues);
+        console.log("1 document updated");
+        res.json(result);
+    } catch (err) {
+        console.error(`Failed to update agent: ${err}`);
+        res.status(500).json({ error: 'Failed to update agent' });
+    }
 };
+    
 
 // This section will help you delete an agent
 export function deleteAgentById (req, res) {
