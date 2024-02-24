@@ -32,3 +32,7 @@
 .content-box form {
     text-align: left; /* O cualquier otra alineación que desees */
   }
+  .required {
+    color: red;
+    margin-left: 4px; /* Para agregar espacio entre la etiqueta y el asterisco */
+}

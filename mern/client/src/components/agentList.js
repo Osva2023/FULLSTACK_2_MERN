@@ -64,22 +64,22 @@ export default function AgentList() {
  }
   // This following section will display the table with the agents of individuals.
  return (
-   <div>
-     <Navbar /> 
-     <h3>Agent List</h3>
-     <table className="table table-striped" style={{ marginTop: 20 }}>
-       <thead>
-         <tr>
-           <th>Full_Name</th>         
-           <th>Region</th>
-           <th>Rating</th>
-           <th>Sales</th>          
-           <th>Fee</th>
-           <th>Action</th>
-         </tr>
-       </thead>
-       <tbody>{agentList()}</tbody>
-     </table>
-   </div>
- );
+  <div style={{ margin: '20px auto', maxWidth: '1400px' }}>
+  <Navbar />
+  <h3>Agent List</h3>
+  <table className="table table-striped" style={{ marginTop: 20 }}>
+    <thead>
+      <tr>
+        <th>Full_Name</th>
+        <th>Region</th>
+        <th>Rating</th>
+        <th>Sales</th>
+        <th>Fee</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>{agentList()}</tbody>
+  </table>
+</div>
+);
 }

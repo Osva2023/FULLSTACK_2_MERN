@@ -27,6 +27,7 @@ export const getAgentById = async (req, res) => {
 export const createAgent = async (req, res) => {
   try {
     const agent = new Agent(req.body);
+    
     const result = await agent.save();
     res.json(result);
   } catch (err) {
